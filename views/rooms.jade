@@ -1,0 +1,35 @@
+include ./header.jade
+body
+  section
+    form(action='/create' method='post')
+      h2 Creer une partie
+      input(type='submit' class='button' value='creer')
+    h2 Liste des parties
+    ul(class='small-block-grid-2 medium-block-grid-3 large-block-grid-4')
+      each b, room in rooms
+        li(class='qrcode') #{room}
+  script(src='/js/qrcode.min.js')
+  script.
+    var qrcodes = document.querySelectorAll('.qrcode');
+    
+    for (var i = 0, m = qrcodes.length; i < m; i++) {
+      var text = qrcodes[i].innerText,
+          link = 'http://' + window.location.host + window.location.pathname + '/' + text,
+          a = document.createElement('a');
+      
+      a.href = link.replace('join//', 'join/');
+      a.innerText = 'Rejoindre';
+      a.target = '_blank';
+      qrcodes[i].innerText = '';
+      qrcodes[i].appendChild(a);
+      
+      new QRCode(qrcodes[i], {
+          text: qrcodes[i].innerText,
+          width: 128,
+          height: 128,
+          colorDark : "#000000",
+          colorLight : "#ffffff",
+          correctLevel : QRCode.CorrectLevel.H
+        })
+    }
+    

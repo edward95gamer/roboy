@@ -1,0 +1,12 @@
+section {  
+  margin: auto;
+  width: auto;
+  padding: 15px;
+}
+
+body#main {
+  background: #000;
+  justify-content: space-around;
+  display: flex;
+  flex-direction: column;
+}
